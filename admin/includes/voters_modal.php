@@ -11,6 +11,9 @@
   }
 </style>
 
+<?php
+  $sqlquery = mysqli_query($conn,"SELECT * FROM department");
+?>
 <!--To check the length of the numbers inputted
 <script>
   if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);
@@ -48,17 +51,45 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="password" class="col-sm-3 control-label">Password</label>
+                    <label for="date_of_birth" class="col-sm-3 control-label">Date of Birth</label>
 
                     <div class="col-sm-9">
-                      <input type="password" class="form-control" id="password" name="password" required>
+                      <input type="date" class="form-control" id="dob" name="dob" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="photo" class="col-sm-3 control-label">Photo</label>
+                    <label for="level" class="col-sm-3 control-label">Level</label>
 
                     <div class="col-sm-9">
-                      <input type="file" id="photo" name="photo">
+                      <select class="form-control" id="level" name="level">
+                        <option>100</option>
+                        <option>200</option>
+                        <option>300</option>
+                        <option>400</option>
+                      </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="gender" class="col-sm-3 control-label">Gender</label>
+
+                    <div class="col-sm-9">
+                      <select class="form-control" id="gender" name="gender">
+                        <option>Male</option>
+                        <option>Female</option>
+                      </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="department" class="col-sm-3 control-label">Program</label>
+                    
+                    <div class="col-sm-9">
+                      <select class="form-control" id="department" name="department">
+                        <?php
+                          while($row = mysqli_fetch_array($sqlquery)){
+                        ?>  
+                        <option><?php echo $row["depart_name"];?></option>
+                        <?php }?>
+                      </select>
                     </div>
                 </div>
             </div>
@@ -105,17 +136,54 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="edit_password" class="col-sm-3 control-label">Password</label>
+                    <label for="date_of_birth" class="col-sm-3 control-label">Date of Birth</label>
 
                     <div class="col-sm-9">
-                      <input type="password" class="form-control" id="edit_password" name="password">
+                      <input type="date" class="form-control" id="edit_dob" name="dob" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="level" class="col-sm-3 control-label">Level</label>
+
+                    <div class="col-sm-9">
+                      <select class="form-control" id="edit_level" name="level">
+                        <option>100</option>
+                        <option>200</option>
+                        <option>300</option>
+                        <option>400</option>
+                      </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                  <label for="gender" class="col-sm-3 control-label">Gender</label>
+
+                  <div class="col-sm-9">
+                    <select class="form-control" id="edit_gender" name="gender">
+                      <option>Male</option>
+                      <option>Female</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                    <label for="department" class="col-sm-3 control-label">Program</label>
+                    <?php
+                      $sqlquery = mysqli_query($conn,"SELECT * FROM department");
+                    ?>
+                    <div class="col-sm-9">
+                      <select class="form-control" id="edit_department" name="department">
+                        <?php
+                          while($row1 = mysqli_fetch_array($sqlquery)){
+                        ?>  
+                        <option><?php echo $row1["depart_name"];?></option>
+                        <?php }?>
+                      </select>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
               <button type="submit" class="btn btn-success btn-flat" name="edit"><i class="fa fa-check-square-o"></i> Update</button>
-              </form>
+            </form>
             </div>
         </div>
     </div>
@@ -175,4 +243,3 @@
         </div>
     </div>
 </div>
-

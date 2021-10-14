@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 08, 2021 at 08:41 AM
+-- Generation Time: Aug 18, 2021 at 07:23 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -76,6 +76,39 @@ INSERT INTO `candidates` (`id`, `position_id`, `firstname`, `lastname`, `photo`,
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `department`
+--
+
+CREATE TABLE `department` (
+  `id` int(11) NOT NULL,
+  `depart_name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `department`
+--
+
+INSERT INTO `department` (`id`, `depart_name`) VALUES
+(1, 'Bachelor of Laws (LLB)'),
+(2, 'Bachelor of Arts in Public Relations Management'),
+(3, 'Bachelor of Science in Accounting'),
+(4, 'Bachelor of Science in Accounting and Finance'),
+(5, 'Bachelor of Science in Business Economics'),
+(6, 'Bachelor of Science in Actuarial Science'),
+(7, 'Bachelor of Science in Banking and Finance'),
+(8, 'Bachelor of Business Administration'),
+(9, 'Bachelor of Science in Information Technology Management'),
+(10, 'Bachelor of Science in Marketing'),
+(11, 'Bachelor of Science in Real Estate Management and Finance'),
+(12, 'Diploma in Accounting'),
+(13, 'Diploma in Marketing'),
+(14, 'Diploma in Management'),
+(15, 'Diploma in Public Relations'),
+(16, 'Diploma in Information Technology Management');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `positions`
 --
 
@@ -104,9 +137,14 @@ INSERT INTO `positions` (`id`, `description`, `max_vote`, `priority`) VALUES
 CREATE TABLE `voters` (
   `id` int(11) NOT NULL,
   `voters_id` varchar(15) NOT NULL,
-  `password` varchar(60) NOT NULL,
   `firstname` varchar(30) NOT NULL,
   `lastname` varchar(30) NOT NULL,
+  `email` varchar(62) NOT NULL,
+  `dob` date NOT NULL,
+  `gender` char(10) NOT NULL,
+  `level` int(11) NOT NULL,
+  `department_id` int(62) NOT NULL,
+  `password` varchar(60) NOT NULL,
   `photo` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -114,10 +152,10 @@ CREATE TABLE `voters` (
 -- Dumping data for table `voters`
 --
 
-INSERT INTO `voters` (`id`, `voters_id`, `password`, `firstname`, `lastname`, `photo`) VALUES
-(1, '10032984', '$2y$10$T0GWGC3OcYUTdbkksbnxQ.XF5rQFD0gZ30vT3IGwK8dZu9X0Pd.Yi', 'Kofi', 'Ampa', 'vlcsnap-2020-11-25-18h31m35s834.png'),
-(2, '10012345', '$2y$10$tGgC6gURpkmKmARYjEnle.Z4rT8sbrYe668UkgNQAriMFnbpFJIXa', 'Ama', 'Ato', ''),
-(4, '10023534', '$2y$10$mMD/Cgn3/IPi/cpJClE6Te0V1akCNfQ6EiXdfwov8SRJEzFbxNOxa', 'Elizabeth', 'Me', '');
+INSERT INTO `voters` (`id`, `voters_id`, `firstname`, `lastname`, `email`, `dob`, `gender`, `level`, `department_id`, `password`, `photo`) VALUES
+(1, '10032984', 'Kofii', 'Ampaa', 'bihefel197@eyeremind.com', '1999-04-15', 'male', 300, 13, '$2y$10$Fh.SgG5wFiLOcxOCRRrQRu5OLN71voyDSI0nTZYLBRPjkF8lq28LG', 'vlcsnap-2020-11-25-18h31m35s834.png'),
+(2, '10012345', 'Ama', 'Ato', 'sanos49593@nhmty.com', '1998-02-01', 'female', 100, 10, '$2y$10$tGgC6gURpkmKmARYjEnle.Z4rT8sbrYe668UkgNQAriMFnbpFJIXa', ''),
+(3, '213132435', 'Ama', 'Philip', '213132435@upsa.edu.gh', '1990-04-15', 'female', 200, 8, '$2y$10$ETuj8.qSOAaoSijLPBII0.Pz93GI6HeSTtpXRYEiXR5HZlwf1RyA6', '');
 
 -- --------------------------------------------------------
 
@@ -146,6 +184,12 @@ ALTER TABLE `admin`
 -- Indexes for table `candidates`
 --
 ALTER TABLE `candidates`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `department`
+--
+ALTER TABLE `department`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -183,6 +227,12 @@ ALTER TABLE `candidates`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT for table `department`
+--
+ALTER TABLE `department`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
 -- AUTO_INCREMENT for table `positions`
 --
 ALTER TABLE `positions`
@@ -192,7 +242,7 @@ ALTER TABLE `positions`
 -- AUTO_INCREMENT for table `voters`
 --
 ALTER TABLE `voters`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `votes`

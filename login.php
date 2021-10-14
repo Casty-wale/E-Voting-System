@@ -1,11 +1,13 @@
 <?php
+
+	//User login checks.
 	session_start();
 	include 'includes/conn.php';
 
 	if(isset($_POST['login'])){
 		$voter = $_POST['voter'];
 		$password = $_POST['password'];
-
+		
 		$sql = "SELECT * FROM voters WHERE voters_id = '$voter'";
 		$query = $conn->query($sql);
 

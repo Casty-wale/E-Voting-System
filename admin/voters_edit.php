@@ -6,20 +6,21 @@
 		$voters_id = $_POST['voters_id'];
 		$firstname = $_POST['firstname'];
 		$lastname = $_POST['lastname'];
-		$password = $_POST['password'];
+		$dob = $_POST['dob'];
+		$level = $_POST['level'];
+		$depart = $_POST['department'];
+
+		$sqlquery = mysqli_query($conn,"SELECT `id` FROM `department` WHERE `depart_name` = '$depart'"); 
+	
+		$row1 = mysqli_fetch_assoc($sqlquery);
+		$result = $row1['id'];
 
 		$sql = "SELECT * FROM voters WHERE id = $id";
 		$query = $conn->query($sql);
 		$row = $query->fetch_assoc();
 
-		if($password == $row['password']){
-			$password = $row['password'];
-		}
-		else{
-			$password = password_hash($password, PASSWORD_DEFAULT);
-		}
 
-		$sql = "UPDATE voters SET voters_id = '$voters_id', firstname = '$firstname', lastname = '$lastname', password = '$password' WHERE id = '$id'";
+		$sql = "UPDATE voters SET voters_id = '$voters_id', firstname = '$firstname', lastname = '$lastname', dob = '$dob', level = '$level', department_id = '$result' WHERE id = '$id'";
 		if($conn->query($sql)){
 			$_SESSION['success'] = 'Voter updated successfully';
 		}

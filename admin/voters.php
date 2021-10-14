@@ -51,31 +51,30 @@
             <div class="box-body">
               <table id="example1" class="table table-bordered">
                 <thead>
+                  <th>Student ID</th>
                   <th>Last Name</th>
                   <th>First Name</th>
-                  <th>Photo</th>
-                  <th>Student ID</th>
+                  <th>Level</th>
+                  <th>Program</th>
+                  
                   <th>Tools</th>
                 </thead>
                 <tbody>
                   <?php
-                    $sql = "SELECT * FROM voters";
-                    $query = $conn->query($sql);
-                    while($row = $query->fetch_assoc()){
-                      $image = (!empty($row['photo'])) ? '../images/'.$row['photo'] : '../images/profile.jpg';
+                    $sql_2 = "SELECT * FROM department INNER JOIN voters ON department.id = voters.department_id";
+                    $query = $conn->query($sql_2);
+                    while($row1 = $query->fetch_assoc()){
                       echo "
                         <tr>
-                          <td>".$row['lastname']."</td>
-                          <td>".$row['firstname']."</td>
+                          <td>".$row1['voters_id']."</td>
+                          <td>".$row1['firstname']."</td>
+                          <td>".$row1['lastname']."</td>
+                          <td>".$row1['level']."</td>
+                          <td>".$row1['depart_name']."</td>
                           <td>
-                            <img src='".$image."' width='30px' height='30px'>
-                            <a href='#edit_photo' data-toggle='modal' class='pull-right photo' data-id='".$row['id']."'><span class='fa fa-edit'></span></a>
-                          </td>
-                          <td>".$row['voters_id']."</td>
-                          <td>
-                            <button class='btn btn-success btn-sm edit btn-flat' data-id='".$row['id']."'><i class='fa fa-edit'></i> Edit</button>
-                            <button class='btn btn-danger btn-sm delete btn-flat' data-id='".$row['id']."'><i class='fa fa-trash'></i> Delete</button>
-                          </td>
+                            <button class='btn btn-success btn-sm edit btn-flat' data-id='".$row1['id']."'><i class='fa fa-edit'></i> Edit</button>
+                            <button class='btn btn-danger btn-sm delete btn-flat' data-id='".$row1['id']."'><i class='fa fa-trash'></i> Delete</button>
+                            </td
                         </tr>
                       ";
                     }
@@ -92,7 +91,13 @@
   <?php include 'includes/footer.php'; ?>
   <?php include 'includes/voters_modal.php'; ?>
 </div>
-<?php include 'includes/scripts.php'; ?>
+<?php include 'includes/scripts.php'; 
+  $sqlquery = mysqli_query($conn,"SELECT * FROM `department`");
+  $dept_names = array();
+  while($raw = mysqli_fetch_assoc($sqlquery)){
+    array_push($dept_names,$raw['depart_name']);
+  }
+?>
 <script>
 $(function(){
   $(document).on('click', '.edit', function(e){
@@ -117,6 +122,12 @@ $(function(){
 
 });
 
+function ucwords (str) {
+    return (str + '').replace(/^([a-z])|\s+([a-z])/g, function ($1) {
+        return $1.toUpperCase();
+    });
+}
+
 function getRow(id){
   $.ajax({
     type: 'POST',
@@ -124,15 +135,29 @@ function getRow(id){
     data: {id:id},
     dataType: 'json',
     success: function(response){
+      let dep = '';
+      const dt = <?php echo json_encode($dept_names); ?>; 
+
+      $.each(dt, function(key, value) {
+        key = key + 1;
+        if(response.department_id === key.toString()) dep = value;
+      });
+
       $('.id').val(response.id);
       $('#edit_voters_id').val(response.voters_id);
       $('#edit_firstname').val(response.firstname);
       $('#edit_lastname').val(response.lastname);
+      $('#edit_dob').val(response.dob);
+      $('#edit_level').val(response.level);
+      $('#edit_gender').val(ucwords(response.gender));
+      $('#edit_department').val(dep);
       $('#edit_password').val(response.password);
       $('.fullname').html(response.firstname+' '+response.lastname);
+      
     }
   });
 }
+
 </script>
 </body>
 </html>

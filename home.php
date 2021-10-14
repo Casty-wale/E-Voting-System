@@ -7,7 +7,6 @@
 	 
 	  <div class="content-wrapper">
 	    <div class="container">
-
 	      <!-- Main content -->
 	      <section class="content">
 	      	<?php
@@ -17,6 +16,15 @@
 	      	<h1 class="page-header text-center title"><b><?php echo strtoupper($title); ?></b></h1>
 	        <div class="row">
 	        	<div class="col-sm-10 col-sm-offset-1">
+					<?php if (isset($_GET['error'])) {
+					echo "
+					<div>
+					<div class='alert alert-danger alert-dismissible'>
+					<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+					<h4><i class='icon fa fa-warning'></i> Error!</h4>"
+					.$_GET['error'] ."
+					</div>";
+					} ?>
 	        		<?php
 				        if(isset($_SESSION['error'])){
 				        	?>

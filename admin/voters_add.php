@@ -1,17 +1,31 @@
 <?php
 	include 'includes/session.php';
+	
 
 	if(isset($_POST['add'])){
 		$voters_id = $_POST['voters_id'];
 		$firstname = $_POST['firstname'];
 		$lastname = $_POST['lastname'];
-		$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-		$filename = $_FILES['photo']['name'];
-		if(!empty($filename)){
-			move_uploaded_file($_FILES['photo']['tmp_name'], '../images/'.$filename);	
-		}
+		$dob = $_POST['dob'];
+		$level = $_POST['level'];
+		$gender = strtolower($_POST['gender']);
+		$depart = $_POST['department'];
+		
+		$result = explode('-',$dob);
+		$day = $result[2];
+		$month = $result[1];
+		$year = $result[0];
+		$newdate = $day."-".$month."-".$year;
+		$password = password_hash($newdate, PASSWORD_DEFAULT);
+		$email = $voters_id."@upsa.edu.gh";
 
-		$sql = "INSERT INTO voters (voters_id, password, firstname, lastname, photo) VALUES ('$voters_id', '$password', '$firstname', '$lastname', '$filename')";
+		$sqlquery = mysqli_query($conn,"SELECT `id` FROM `department` WHERE `depart_name` = '$depart'"); 
+	
+		$row = mysqli_fetch_assoc($sqlquery);
+		$result = $row['id'];
+
+		$sql = "INSERT INTO voters (voters_id, password, firstname, lastname, email, dob, level, gender, department_id) 
+		VALUES ('$voters_id', '$password', '$firstname', '$lastname', '$email', '$dob', '$level', '$gender', '$result')";
 		if($conn->query($sql)){
 			$_SESSION['success'] = 'Voter added successfully';
 		}

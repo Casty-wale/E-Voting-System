@@ -20,6 +20,7 @@
   	<!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   	<link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="../../css/font-awesome.min.css">
 
   	<!-- Google Font -->
   	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
@@ -27,11 +28,14 @@
   	<style>
       .bg{
         background-image: url("images/about-upsa.jpg");
-        height: 620px;
+        height: 0px;
         position: relative;
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
+      }
+      .login-box{
+        width: 450px;
       }
   		.mt20{
         margin-top: 20px;
