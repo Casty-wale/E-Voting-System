@@ -101,6 +101,39 @@
         </div>
     </div>
 </div>
+<!-- Add Multiple Users-->
+<div class="modal fade" id="addbulk">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>*
+              <h4 class="modal-title"><b>Add Multiple Voter</b></h4>
+            </div>
+            <div class="modal-body">
+              <form class="form-horizontal" method="POST" action="add_bulk.php" enctype="multipart/form-data">
+              
+              <label class="control-label" style = "font-weight: lighter;"> <b style = "color: red">Note:</b> 
+              The file must must be in an excel file <b class = "text-muted">(.xsl or .xslx) </b> and in the correct table order listed below; <br><br>
+              <div style = "text-align: left;"><b class = "text-muted"> *Student ID <br>*First Name <br>*Last Name <br>*Email <br>*Date of birth (formatted YYYY-MM-DD) <br>*Gender <br>*Level <br>*Department <br><br></b></div></label>
+                
+                <div class="form-group">
+                  <label for="upload" class="col-sm-3 control-label">Upload the file</label>
+                  
+                  <div class="col-sm-9">
+                    <input type="file" id="upload" name="upload" required>
+                  </div>
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+              <button type="submit" class="btn btn-primary btn-flat" name="add"><i class="fa fa-save"></i> Save</button>
+              </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Edit -->
 <div class="modal fade" id="edit">

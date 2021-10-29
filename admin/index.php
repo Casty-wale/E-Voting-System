@@ -10,7 +10,7 @@
   	<div class="login-logo">
   		<b>Online Voting System</b>
   	</div>
-  
+
   	<div class="login-box-body">
     	<p class="login-box-msg">Sign in to start your session</p>
 
@@ -31,6 +31,7 @@
     	</form>
   	</div>
   	<?php
+
   		if(isset($_SESSION['error'])){
   			echo "
   				<div class='callout callout-danger text-center mt20'>
